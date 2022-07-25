@@ -3,7 +3,9 @@ const app = express();
 const PORT = 3001;
 const fs = require('fs');
 const path = require('path');
-const util = require('util');
+//const util = require('util');
+//const uuid = require('./public/assets/js/uuid')
+const notes = require('./db/db.json');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -31,10 +33,17 @@ const readAndAppend = (content, file) => {
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
+// serves up notes page
 app.get('/notes', (req, res) => 
     res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
+app.get('/api/notes', (req, res) => 
+    res.json(notes)
+);
+
+
+// saves notes to db.json
 app.post('/api/notes', (req, res) => {
     // logging POST request was recieved
     console.info(`${req.method} request received to save notes`);
@@ -60,6 +69,8 @@ app.post('/api/notes', (req, res) => {
         res.json('Error saving the note');
     }
 });
+
+
 
 app.listen(PORT, () =>
     console.log(`App listening at http://localhost:${PORT}`)
