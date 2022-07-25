@@ -4,8 +4,8 @@ const PORT = 3001;
 const fs = require('fs');
 const path = require('path');
 //const util = require('util');
-//const uuid = require('./public/assets/js/uuid')
-//const notes = require('./db/db.json');
+//const uuid = require('./public/assets/js/uuid') < - can use for random id insead of 1,2,3,4 etc.
+var n = 0;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -55,16 +55,17 @@ app.get('/api/notes', (req, res)  => {
 // saves notes to db.json
 app.post('/api/notes', (req, res) => {
     // logging POST request was recieved
+    n = n + 1;
     console.info(`${req.method} request received to save notes`);
     console.info(req.body);
 
-    const { title, text, note_id } = req.body;
+    const { title, text, id } = req.body;
 
     if (title && text) {
         const newNote = {
             title,
             text,
-            note_id,
+            id: n
         };
 
         readAndAppend(newNote, './db/db.json');
