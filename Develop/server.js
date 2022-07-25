@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 //const util = require('util');
 //const uuid = require('./public/assets/js/uuid')
-const notes = require('./db/db.json');
+//const notes = require('./db/db.json');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -38,9 +38,18 @@ app.get('/notes', (req, res) =>
     res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
-app.get('/api/notes', (req, res) => 
-    res.json(notes)
-);
+// CHECK THIS SYNTAX
+app.get('/api/notes', (req, res)  => {
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            res.json("WOOPS")
+        } else {
+            const parsedNote = JSON.parse(data);
+            res.json(parsedNote);
+        }
+    })
+});
 
 
 // saves notes to db.json
@@ -49,12 +58,13 @@ app.post('/api/notes', (req, res) => {
     console.info(`${req.method} request received to save notes`);
     console.info(req.body);
 
-    const { title, text } = req.body;
+    const { title, text, note_id } = req.body;
 
     if (title && text) {
         const newNote = {
             title,
             text,
+            note_id,
         };
 
         readAndAppend(newNote, './db/db.json');
@@ -70,7 +80,7 @@ app.post('/api/notes', (req, res) => {
     }
 });
 
-
+app.delete('/api/notes')
 
 app.listen(PORT, () =>
     console.log(`App listening at http://localhost:${PORT}`)
