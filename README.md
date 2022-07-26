@@ -17,10 +17,13 @@ appear at the upper right.
 * Express
 * Node.js
 * Visual Studio Code
+* Bootstrap
 
 ## Deployed Application
 
 https://note-taking-app-liam.herokuapp.com/ < - - - - -
+
+![alt text](./notes.png)
 
 ## Code
 
