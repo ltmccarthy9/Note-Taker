@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 
-// - - - - - - - - - - - - - functions from activity - - - - - - - - - - - - - - - - - - - - - - -
+// - - -  functions for reading and appending to db.json - - - - - - - - - - - - - - - - - - - - - - -
 const writeToFile = (destination, content) =>
   fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
     err ? console.error(err) : console.info(`\nData written to ${destination}`)
@@ -34,9 +34,9 @@ const readAndAppend = (content, file) => {
 
 
 // serves up notes page
-app.get('/notes', (req, res) => 
+app.get('/notes', (req, res) => { 
     res.sendFile(path.join(__dirname, '/public/notes.html'))
-);
+});
 
 // CHECK THIS SYNTAX
 app.get('/api/notes', (req, res)  => {
@@ -81,7 +81,7 @@ app.post('/api/notes', (req, res) => {
     }
 });
 
-app.delete('/api/notes')
+//app.delete('/api/notes')
 
 app.listen(PORT, () =>
     console.log(`App listening at http://localhost:${PORT}`)

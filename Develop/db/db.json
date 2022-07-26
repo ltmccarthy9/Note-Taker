@@ -1,6 +1,26 @@
 [
     {
-        "title":"Test Title",
-        "text":"Test text"
+        "title": "Test Title",
+        "text": "Test text"
+    },
+    {
+        "title": "Liam ",
+        "text": "my new notes",
+        "id": 1
+    },
+    {
+        "title": "Hey Hey",
+        "text": "this is a note",
+        "id": 2
+    },
+    {
+        "title": "This is a new note",
+        "text": "And my name is Liam",
+        "id": 3
+    },
+    {
+        "title": "What's up my dudes",
+        "text": "hahaha\n",
+        "id": 1
     }
 ]
